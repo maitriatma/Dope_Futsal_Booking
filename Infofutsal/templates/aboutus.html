@@ -1,0 +1,278 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<!--Loaded static files for css and used base.html for header and footer-->
+<title>About Us - Dope Futsal</title>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static '/css/aboutus.css' %}"
+/>
+<!--First section starts-->
+<section class="home" id="home">
+  <div class="image">
+    <img src="/static/images/football.svg" alt="" />
+  </div>
+
+  <div class="content">
+    <h1 class="heading"><span style="color: #e0623c;">Dope</span> Futsal</h1>
+    <h3>One Team,<span style="color: #e0623c;"> One Dream</span></h3>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem sed autem
+      vero? Magnam, est laboriosam!
+    </p>
+    <a href="http://127.0.0.1:8000/contactus" class="btn" style="border-color: #e0623c; color: black;">
+      contact us <span class="fas fa-chevron-right"></span>
+    </a>
+  </div>
+</section>
+
+<!-- First section ends -->
+<!--Scroll Down-->
+
+<a href="#about">
+  <div class="scroll_down">
+  
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+<!--Scroll Down CSS-->
+  <style>
+.scroll_down {
+  position: absolute;
+  bottom: -45px;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  transform: translateY(-80px) translateX(50%) rotate(45deg);
+}
+.scroll_down span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  animation: animate 1.5s linear infinite;
+}
+.scroll_down span:nth-child(1) {
+  transform: translate(-15px, -15px);
+  animation-delay: -0.4s;
+}
+.scroll_down span:nth-child(2) {
+  transform: translate(0, 0);
+  animation-delay: -0.2s;
+}
+.scroll_down span:nth-child(3) {
+  transform: translate(15px, 15px);
+  animation-delay: -0s;
+}
+@keyframes animate {
+  0% {
+    top: -5px;
+    left: -5px;
+    opacity: 0;
+  }
+  25% {
+    top: 0px;
+    left: 0px;
+    opacity: 1;
+  }
+  50%,
+  100% {
+    top: -5px;
+    left: -5px;
+    opacity: 0;
+  }
+}
+
+  </style>
+  </a>
+  <!--Scroll Down Css Ends-->
+<!-- about section starts  -->
+
+<section class="about" id="about">
+  <h1 class="heading"><span style="color: #e0623c;">about</span> us</h1>
+
+  <div class="row">
+    <div class="image">
+      <img src="/static/images/aboutus.svg" alt="" style="height: 400px; width: 400px; margin-left: 170px; margin-bottom: 60px;" />
+    </div>
+
+    <div class="content">
+      <h3>Dope Futsal</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure ducimus,
+        quod ex cupiditate ullam in assumenda maiores et culpa odit tempora
+        ipsam qui, quisquam quis facere iste fuga, minus nesciunt.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus vero
+        ipsam laborum porro voluptates voluptatibus a nihil temporibus deserunt
+        vel?
+      </p>
+      <a href="#" class="btn">
+        learn more <span class="fas fa-chevron-right"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- about section ends -->
+<!-- services section starts  -->
+
+<section class="services" id="services">
+  <h1 class="heading">our <span style="color: #e0623c;">services</span></h1>
+
+  <div class="box-container">
+    <div class="box">
+      <i class="fas fa-futbol"></i>
+      <h3>Play Futsal</h3>
+      <p>
+        You've chosen a great futsal, booked it with ease, and now it's time to play. The stage has been set for your epic futsal match.
+      </p>
+      <a href="#" class="btn">
+        learn more <span class="fas fa-chevron-right"></span>
+      </a>
+    </div>
+
+    <div class="box">
+      <i class="fas fa-calendar-alt"></i>
+      <h3>Book Futsal Online</h3>
+      <p>
+        Connect with the venue through the Book Now Button to make an online booking and secure easier payment.
+      </p>
+      <a href="#" class="btn">
+        learn more <span class="fas fa-chevron-right"></span>
+      </a>
+    </div>
+
+    <div class="box">
+      <i class="fas fa-shopping-bag"></i>
+      <h3>Online Shopping</h3>
+      <p>
+        Players can get your sport wears from our own shop for extra discount and easy payment methods.
+      </p>
+      <a href="#" class="btn">
+        learn more <span class="fas fa-chevron-right"></span>
+      </a>
+    </div>
+
+    <div class="box">
+      <i class="fas fa-credit-card"></i>
+      <h3>Online Payments</h3>
+      <p>
+        Book/Order your futsal time with futsal wears using online payment. We accept E-Sewa payment. 
+      </p>
+      <a href="#" class="btn">
+        learn more <span class="fas fa-chevron-right"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- services section ends -->
+<!-- Our Teams section starts  -->
+
+<section class="teams" id="teams">
+  <h1 class="heading">our <span style="color: #e0623c;">Team</span></h1>
+
+  <div class="box-container">
+    <div class="box">
+      <img src="/static/images/prabindai.jpg" alt="" />
+      <h3>Prabin Khadka</h3>
+      <span>Owner</span>
+      <div class="share">
+        <a href="#" class="fab fa-facebook-f"></a>
+        <a href="#" class="fab fa-instagram"></a>
+      </div>
+    </div>
+
+    <div class="box">
+      <img src="/static/images/aayush.jpg" alt="" />
+      <h3>Aayush Thapa</h3>
+      <span>Manager</span>
+      <div class="share">
+        <a href="#" class="fab fa-facebook-f"></a>
+        <a href="#" class="fab fa-instagram"></a>
+      </div>
+    </div>
+
+    <div class="box">
+      <img src="/static/images/nirojdai.jpg" alt="" />
+      <h3>Niroj Khadka</h3>
+      <span>Co-Owner</span>
+      <div class="share">
+        <a href="#" class="fab fa-facebook-f"></a>
+        <a href="#" class="fab fa-instagram"></a>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Teams section ends -->
+<!-- Review section starts  -->
+
+<section class="review" id="review">
+  
+  <h1 class="heading">Player's  <span style="color: #e0623c;">Review</span></h1>
+  <div class="row">
+    {% for review in review %}
+    <div class="col mx-auto mb-3" id="{{review.id}}" >
+    <div class="box-container">
+      <div class="box" >
+        <img src="{{review.photo.url}}" alt="" />
+        <h3 style="color: #e0623c;">{{review.fullname}}</h3>
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+        </div>
+        <p class="text">
+          {{review.message}}
+        </p>
+      </div>
+    </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+</section>
+<h1 class="heading">Futsal  <span style="color: #e0623c;">Location</span></h1>
+<section class="map top" id="futsallocation">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2546.8710334004677!2d85.43103352494501!3d27.730701812482415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2snp!4v1647099735345!5m2!1sen!2snp" 
+    width="600"
+    height="600"
+    style="border: 0"
+    allowfullscreen=""
+    loading="lazy"
+  ></iframe>
+  <style>
+    .map iframe {
+width: 100%;
+}
+  </style>
+</section>
+<!-- Review section ends -->
+<!-- Custom js file link  -->
+<script>
+  let menu = document.querySelector('#menu-btn');
+let navbar = document.querySelector('.navbar');
+
+menu.onclick = () =>{
+    menu.classList.toggle('fa-times');
+    navbar.classList.toggle('active');
+}
+
+window.onscroll = () =>{
+    menu.classList.remove('fa-times');
+    navbar.classList.remove('active');
+}
+</script>
+
+{% endblock %}

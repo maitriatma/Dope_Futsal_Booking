@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/css/signup.css' %}"
+    />
+    <link
+      rel="shortcut icon"
+      type="x-icon"
+      href="https://i.ibb.co/Y34f0yV/icontaskbar.png"
+    />
+    <title>Sign Up into Dope Futsal</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <h2 class="title" style="color: black">Sign Up</h2>
+            {% if error %}
+
+            <div class="alert alert-danger" role="alert">{{error}}</div>
+
+            {% endif %}
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input
+                type="firstname"
+                name="firstname"
+                id=""
+                value="{{values.first_name}}"
+                class="form-control"
+                placeholder="First Name"
+                aria-describedby="helpId"
+              />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input
+                type="lastname"
+                name="lastname"
+                id=""
+                value="{{values.last_name}}"
+                class="form-control"
+                placeholder="Last Name"
+                aria-describedby="helpId"
+              />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-phone-alt"></i>
+              <input
+                type="phone"
+                name="phone"
+                id=""
+                value="{{values.phone}}"
+                class="form-control"
+                placeholder="Phone Number"
+                aria-describedby="helpId"
+              />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input
+                type="username"
+                name="username"
+                id=""
+                value="{{values.username}}"
+                class="form-control"
+                placeholder="User Name"
+                aria-describedby="helpId"
+              />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-at"></i>
+              <input
+                type="email"
+                name="email"
+                id=""
+                value="{{values.email}}"
+                class="form-control"
+                placeholder="Email"
+                aria-describedby="helpId"
+              />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                class="password"
+                placeholder="Password"
+                name="password"
+                id=""
+                required
+              />
+            </div>
+            <input type="submit" value="Sign Up" class="btn solid" />
+            <p class="social-text" style="color: black">
+              Or Sign Up with social platforms
+            </p>
+            <div class="social-media">
+              <a href="#" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+
+              <a href="#" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3 style="color: black">One of us ?</h3>
+            <p style="color: black">
+              Sign-In if you are an existing member of Dope Futsal!
+            </p>
+            <a href="http://127.0.0.1:8000/login"
+              ><button
+                style="color: black; border-color: black"
+                class="btn transparent"
+              >
+                Login
+              </button></a
+            >
+          </div>
+          <img src="/static/images/log1.svg" class="image" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const sign_in_btn = document.querySelector("#sign-in-btn");
+      const sign_up_btn = document.querySelector("#sign-up-btn");
+      const container = document.querySelector(".container");
+
+      sign_up_btn.addEventListener("click", () => {
+        container.classList.add("sign-up-mode");
+      });
+
+      sign_in_btn.addEventListener("click", () => {
+        container.classList.remove("sign-up-mode");
+      });
+    </script>
+  </body>
+</html>

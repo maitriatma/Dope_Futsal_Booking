@@ -1,0 +1,196 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<head>
+  <title>Dope Futsal - Tournament Registration</title>
+  <link rel="stylesheet" type="text/css" href="{% static '/css/tregister.css' %}" />
+</head>
+
+<br><br><br><br>
+<h1 class="tou">1st open dope futsal tournament-2022</h1>
+<h3 class="th3">Please! Fill the below form without any errors.</h3>
+ 
+<div class="container">
+    
+          {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+  <div class="title">Futsal Tournament Registration</div>
+  
+  <div class="content">
+    <form class="" method="POST">
+      {% csrf_token %}
+
+      <div class="user-details">
+        <div class="input-box">
+          <span class="details">Full Name</span>
+          <input
+            name="name"
+            type="text"
+            placeholder="Enter your Full Name"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Team Name</span>
+          <input
+            name="team_name"
+            type="text"
+            placeholder="Enter your Team Name"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Address</span>
+          <input
+            name="address"
+            type="text"
+            placeholder="Enter your Address"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Phone Number</span>
+          <input
+            name="number"
+            type="text"
+            placeholder="Enter your Number"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Team Captain Name</span>
+          <input
+            name="captain_name"
+            type="text"
+            placeholder="Enter your Team Captain Name"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Team Manager Name</span>
+          <input
+            name="manager_name"
+            type="text"
+            placeholder="Enter Your Team Manager Name"
+            required
+          />
+        </div>
+      </div>
+      <div class="user-details">
+        <div class="input-box">
+          <span class="details">Player 1: Name with Jersey Number</span>
+          <input
+            name="one_player"
+            type="text"
+            placeholder="Player 1 Name with Jersey Number"
+            required 
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Player 2: Name with Jersey Number</span>
+          <input
+            name="two_player"
+            type="text"
+            placeholder="Player 2 Name with Jersey Number"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Player 3: Name with Jersey Number</span>
+          <input
+            name="three_player"
+            type="text"
+            placeholder="Player 3 Name with Jersey Number"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Player 4: Name with Jersey Number</span>
+          <input
+            name="four_player"
+            type="text"
+            placeholder="Player 4 Name with Jersey Number"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Player 5: Name with Jersey Number</span>
+          <input
+            name="five_player"
+            type="text"
+            placeholder="Player 5 Name with Jersey Number"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Player 6: Name with Jersey Number</span>
+          <input
+            name="six_player"
+            type="text"
+            placeholder="Player 6 Name with Jersey Number"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Player 7: Name with Jersey Number</span>
+          <input
+            name="seven_player"
+            type="text"
+            placeholder="Player 7 Name with Jersey Number"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Player 8: Name with Jersey Number</span>
+          <input
+            name="eight_player"
+            type="text"
+            placeholder="Player 8 Name with Jersey Number"
+            required
+          />
+        </div>
+      </div>
+<div class="user-details">
+        <div class="input-box">
+          <span class="details">Team Jersey Color</span>
+          <input
+            name="jersey_color"
+            type="text"
+            placeholder="Enter your Team Jersey Color"
+            required
+          />
+        </div>
+        <div class="input-box">
+          <span class="details">Team Coach</span>
+          <input
+            name="coach_name"
+            type="text"
+            placeholder="Enter your Coach Name"
+            required
+          />
+        </div>
+        </div>
+        <div class="button"><input type="submit" value="Register"
+          /></a>
+        </div>
+        
+    <div class="googleform">
+      <h2 class="gglefrm" style="text-align: center; font-size: 20px;">OR<br> Use Google Form!</h2>
+    </div>
+        <div class="tregbtn" style="margin-left: 192px; border-radius: 90px;">
+        <a
+          href="#"
+          class="btn"
+          >Google Form</a
+        >
+        <!-- <button type="Submit">SEND</button> -->
+      </div>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

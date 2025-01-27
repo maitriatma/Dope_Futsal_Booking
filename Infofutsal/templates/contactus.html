@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block content %} {% load static%}
+<br><br>
+<title>Contact Us - Dope Futsal</title>
+<link rel="stylesheet" type="text/css" href="{% static '/css/contactusone.css' %}" />
+<script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+<br><br><br>
+<!--CONTACT US-->
+ <style>
+    body {
+      background-color: #1a1919;
+      background-repeat: no-repeat;
+      background-attachment: local;
+      background-position: top;
+      background-size: cover;
+    }
+  </style>
+  
+  <body>
+		<div class="contact-wrap">
+			<div class="contact-in">
+				<h1>Contact Info</h1><br>
+				<h2><i class="fa fa-phone" aria-hidden="true"></i> Phone</h2>
+				<p>+977-9861294464<br>
+          +977-9851224051
+        </p><br>
+				<h2><i class="fa fa-envelope" aria-hidden="true"></i> Email</h2>
+				<p>Brihaspatifutsal2018@gmail.com<br>
+          aayushthapa54@gmail.com
+        </p><br>
+				<h2><i class="fa fa-map-marker" aria-hidden="true"></i> Address</h2>
+				<p>Indrayani, Kathmandu-Nepal</p>
+				<ul style="margin-left: 80px; margin-top: 70px;">
+					<li><a href="https://www.facebook.com/Brihaspati-Futsal-105102722128654/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					<li><a href="https://www.instagram.com/brihaspati.futsal/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+				</ul>
+			</div>
+			<div class="contact-in">
+				<h1>Send a Message</h1>
+				<form class="" method="POST">
+          {% csrf_token %}
+					<input type="text" name="name" placeholder="Full Name" class="contact-in-input" required>
+          	<input type="text" name="phone" placeholder="Phone Number" class="contact-in-input" required>
+					<input type="text" name="email" placeholder="Email" class="contact-in-input" required>
+					<input type="text" name="subject" placeholder="Subject" class="contact-in-input" required>
+					<textarea placeholder="Message" name="message" class="contact-in-textarea" required></textarea>
+					<input type="submit" value="SUBMIT" class="contact-in-btn">
+				</form>
+         {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+			</div>
+			<div class="contact-in">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.5540839198825!2d85.42915461485413!3d27.731051031057135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1b366c22a64f%3A0xa4baa5bec70e9af6!2sBhadrabas%2C%20Shankharapur%2044600!5e0!3m2!1sen!2snp!4v1647097151460!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+			</div>
+		</div>
+	</body>
+</section>
+<br>
+{% endblock %}
