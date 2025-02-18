@@ -51,11 +51,7 @@
               ><i class="fas fa-hands-helping"></i>&nbsp;Booking</a
             >
           </li>
-          <li>
-            <a href="http://127.0.0.1:8000/shopping"
-              ><i class="fas fa-shopping-bag"></i>&nbsp;Shopping</a
-            >
-          </li>
+         
           
           <li>
             <a href="http://127.0.0.1:8000/aboutus"
@@ -63,11 +59,11 @@
             >
           </li>
           {% if request.session.customer %}
-           <li>
+           <!-- <li>
             <a href="http://127.0.0.1:8000/Tregistration"
               ><i class="far fa-registered"></i> Tournament Registration</a
             >
-          </li>
+          </li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="http://127.0.0.1:8000/userprofile" style="color: white;" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-circle"></i>
             Profile
@@ -141,13 +137,12 @@
               {% if request.session.customer %}
               <li><a href="http://127.0.0.1:8000/">Homepage</a></li>
               <li><a href="http://127.0.0.1:8000/futsal_booking">Booking</a></li>
-              <li><a href="http://127.0.0.1:8000/shopping">Shopping</a></li>
-              <li><a href="http://127.0.0.1:8000/Tregistration">Tournament Registration</a></li>
+              <!-- <li><a href="http://127.0.0.1:8000/Tregistration">Tournament Registration</a></li> -->
               {% else %}
               <li><a href="http://127.0.0.1:8000/">Homepage</a></li>
               <li><a href="http://127.0.0.1:8000/login">Booking</a></li>
-              <li><a href="http://127.0.0.1:8000/login">Shopping</a></li>
-              <li><a href="http://127.0.0.1:8000/login">Tournament Registration</a></li>
+              <!-- <li><a href="http://127.0.0.1:8000/login">Shopping</a></li> -->
+              <!-- <li><a href="http://127.0.0.1:8000/login">Tournament Registration</a></li> -->
               {% endif %}
             </ul>
           </div>
@@ -171,16 +166,16 @@
               {% else %}
               <li><a href="http://127.0.0.1:8000/login">My Cart</a></li>
               <li><a href="http://127.0.0.1:8000/login">Booking Status</a></li>
-              <li><a href="http://127.0.0.1:8000/login">Order status</a></li>
+              <!-- <li><a href="http://127.0.0.1:8000/login">Order status</a></li> -->
               {% endif %}
             </ul>
           </div>
           <div class="footer-col">
             <h4>Follow us</h4>
             <div class="social-links">
-              <a href="https://www.facebook.com/Brihaspati-Futsal-105102722128654"><i class="fab fa-facebook-f"></i></a>
-              <a href="https://www.youtube.com/channel/UCRzpSGVnQosAmJQPIGUdzWA"><i class="fab fa-youtube"></i></a>
-              <a href="https://www.instagram.com/brihaspati.futsal/"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
           </div>
         </div>

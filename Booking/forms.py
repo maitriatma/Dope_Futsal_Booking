@@ -34,6 +34,6 @@ class AddBooking(forms.ModelForm):
             'phone': forms.NumberInput(attrs={'class': 'form-control','placeholder':'Enter your Phone Number'}),
             'address': forms.TextInput(attrs={'class': 'form-control','placeholder':'Enter your Address'}),
             'time': forms.TimeInput(attrs={'class': 'form-control','placeholder':'Use HH:MM:SS format (02:02:02)'}),
-            'date': forms.DateInput(attrs={'class': 'form-control','placeholder':'Use YYYY-MM-DD format (2022-03-01)'}),
+            'date': forms.DateInput(attrs={'class': 'form-control','placeholder':'Use YYYY-MM-DD format (2025-03-01)'}),
             'playing_hours': forms.NumberInput(attrs={'class': 'form-control','placeholder':'Enter your Playing Hours'}),
         }

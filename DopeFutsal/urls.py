@@ -15,16 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.urls import path, include
 from django.conf.urls.static import static
 from . import settings
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
-                  path('', include('Payment.urls')),
-                  path('', include('Booking.urls')),
-                  path('', include('Infofutsal.urls'))
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('admin/', admin.site.urls),
+    path('', include('Infofutsal.urls')),
+    path('', include('Booking.urls')),
+    path('', include('Payment.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 admin.site.site_header = "Dope Futsal"

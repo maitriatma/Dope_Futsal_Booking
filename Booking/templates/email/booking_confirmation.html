@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #000000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .booking-details {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .detail-row {
+            margin: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .highlight {
+            color: #e0623c;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #e0623c;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Booking Confirmation</h1>
+            <p>Thank you for choosing {{ site_name }}</p>
+        </div>
+        
+        <div class="content">
+            <p>Dear {{ booking.fullname }},</p>
+            
+            <p>Your futsal court booking has been confirmed. Here are your booking details:</p>
+            
+            <div class="booking-details">
+                <div class="detail-row">
+                    <span class="detail-label">Booking ID:</span>
+                    <span>#{{ booking.id }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Court:</span>
+                    <span>{{ booking.get_court_number_display }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Date:</span>
+                    <span>{{ booking.booking_date|date:"F j, Y" }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Time:</span>
+                    <span>{{ booking.time_slot }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Duration:</span>
+                    <span>{{ booking.playing_hours }} hour{{ booking.playing_hours|pluralize }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Total Amount:</span>
+                    <span class="highlight">Rs. {{ booking.total_amount|floatformat:2 }}</span>
+                </div>
+            </div>
+
+            <p><strong>Important Information:</strong></p>
+            <ul>
+                <li>Please arrive 15 minutes before your scheduled time</li>
+                <li>Bring your own sports equipment (balls available for rent)</li>
+                <li>Wear appropriate sports footwear</li>
+                <li>Booking cancellations must be made at least 4 hours in advance</li>
+            </ul>
+
+            <p>For any changes to your booking or queries, please contact us:</p>
+            <ul>
+                <li>Phone: +977-1-XXXXXXX</li>
+                <li>Email: support@dopefutsal.com</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>This is an automated email. Please do not reply to this message.</p>
+            <p>© {{ site_name }}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html> 

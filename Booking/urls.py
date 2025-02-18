@@ -6,10 +6,14 @@ from .views.futsalbooking import futsalbooking
 from Payment.middlewares.auth import auth_middleware
 from .views.all_bookings import all_booking
 from .views.report import showreport
+from .views.booking_views import booking_page, create_booking, booking_confirmation, home
 
 urlpatterns = [
+    path('', home, name='home'),
     path('Tregistration', auth_middleware(Tregistration.as_view()), name='Tregistration'),
-    path('futsalbooking_form', auth_middleware(FutsalBooking.as_view()), name='futsalbooking-form'),
+    path('futsalbooking_form/', booking_page, name='booking_page'),
+    path('book/', create_booking, name='create_booking'),
+    path('booking-confirmation/', booking_confirmation, name='booking_confirmation'),
     path('bookings', auth_middleware(all_booking.as_view()), name='bookings'),
     path('update_booking/<int:id>', update_booking, name='update-booking'),
     path('add_booking', auth_middleware(add_booking), name='add-booking'),
