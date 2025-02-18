@@ -49,7 +49,7 @@
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 500;
-            background: white;
+            background: #90EE90;  /* Light green background for available slots */
             text-align: center;
         }
         .time-slot:hover {
@@ -62,16 +62,15 @@
             color: white;
             box-shadow: 0 4px 8px rgba(224, 98, 60, 0.2);
         }
-        .time-slot.disabled {
-            background-color: #e9ecef;
-            border-color: #dee2e6;
+        .time-slot.sold-out {
+            background-color: #FF6B6B;  /* Red background for sold out slots */
+            border-color: #FF6B6B;
+            color: white;
             cursor: not-allowed;
-            opacity: 0.65;
         }
-        .time-slot.disabled:hover {
-            background-color: #e9ecef;
+        .time-slot.sold-out:hover {
             transform: none;
-            color: inherit;
+            background-color: #FF6B6B;
         }
         .arena-info {
             background-color: #f8f9fa;
@@ -200,6 +199,32 @@
             font-weight: 600;
             color: #333;
         }
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        .legend-available {
+            background-color: #90EE90;
+            border: 1px solid #e0623c;
+        }
+        .legend-sold-out {
+            background-color: #FF6B6B;
+        }
         @media (max-width: 768px) {
             .arena-info {
                 grid-template-columns: 1fr;
@@ -209,6 +234,37 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample data for sold-out slots - in production, this would come from your backend
+            const soldOutSlots = [
+                { court: 1, time: '09:00 AM' },
+                { court: 2, time: '10:00 AM' },
+                { court: 3, time: '11:00 AM' }
+            ];
+
+            // Mark sold-out slots
+            soldOutSlots.forEach(slot => {
+                const slotButton = document.querySelector(`.time-slot[data-court="${slot.court}"]:not(.sold-out)`);
+                if (slotButton && slotButton.textContent.trim() === slot.time) {
+                    slotButton.classList.add('sold-out');
+                    slotButton.disabled = true;
+                }
+            });
+
+            // Handle slot selection
+            document.querySelectorAll('.time-slot:not(.sold-out)').forEach(slot => {
+                slot.addEventListener('click', function() {
+                    // Remove selection from other slots in the same court
+                    const courtSlots = document.querySelectorAll(`.time-slot[data-court="${this.dataset.court}"]`);
+                    courtSlots.forEach(s => s.classList.remove('selected'));
+                    
+                    // Add selection to clicked slot
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="booking-container">
@@ -232,6 +288,17 @@
                 <p>Premium: Rs. 1500/hr</p>
                 <p>Gold: Rs. 1300/hr</p>
                 <p>Silver: Rs. 1000/hr</p>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color legend-available"></div>
+                <span>Available</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color legend-sold-out"></div>
+                <span>Sold Out</span>
             </div>
         </div>
 
@@ -327,34 +394,22 @@
                             <span class="summary-value" id="selectedTime">-</span>
                         </div>
                         <div class="summary-item">
-                            <span class="summary-label">Price</span>
-                            <span class="summary-value">Rs. 1500/hour</span>
+                            <span class="summary-label">Price per Hour</span>
+                            <span class="summary-value" id="pricePerHour">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Playing Hours</span>
+                            <span class="summary-value" id="displayPlayingHours">1 Hour</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Total Price</span>
+                            <span class="summary-value" id="totalPrice">-</span>
                         </div>
                     </div>
 
                     <form id="bookingForm" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="time" id="timeSlot">
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="fullName">Full Name</label>
-                            <input type="text" class="form-control" id="fullName" name="fullname" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="email">Email Address</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="phone">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="address">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" required>
-                        </div>
                         
                         <div class="form-group">
                             <label class="form-label" for="playingHours">Playing Hours</label>
@@ -381,6 +436,27 @@
         const proceedButton = document.getElementById('proceedToBook');
         const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
 
+        // Court prices per hour
+        const courtPrices = {
+            '1': 1500, // Premium Court
+            '2': 1300, // Gold Court
+            '3': 1000  // Silver Court
+        };
+
+        function updatePrice() {
+            if (!selectedTimeSlot) return;
+
+            const courtType = selectedTimeSlot.dataset.court;
+            const pricePerHour = courtPrices[courtType];
+            const hours = parseInt(document.getElementById('playingHours').value);
+            const totalPrice = pricePerHour * hours;
+
+            // Update the display
+            document.getElementById('pricePerHour').textContent = `Rs. ${pricePerHour}`;
+            document.getElementById('displayPlayingHours').textContent = `${hours} Hour${hours > 1 ? 's' : ''}`;
+            document.getElementById('totalPrice').textContent = `Rs. ${totalPrice}`;
+        }
+
         document.querySelectorAll('.time-slot').forEach(slot => {
             slot.addEventListener('click', function() {
                 if (this.classList.contains('disabled')) {
@@ -405,8 +481,14 @@
                 };
                 document.getElementById('selectedCourt').textContent = `${courtTypes[this.dataset.court]} (Court ${this.dataset.court})`;
                 document.getElementById('selectedTime').textContent = this.textContent;
+                
+                // Update price immediately when slot is selected
+                updatePrice();
             });
         });
+
+        // Add event listener for playing hours change
+        document.getElementById('playingHours').addEventListener('change', updatePrice);
 
         proceedButton.addEventListener('click', function() {
             if (selectedTimeSlot) {
@@ -418,31 +500,37 @@
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            if (!selectedTimeSlot) {
+                alert('Please select a time slot');
+                return;
+            }
+            
             // Get CSRF token
             const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
             
-            // Here you would typically send the form data to your server
+            // Create form data
             const formData = new FormData(this);
-            fetch('/book/', {
+            formData.append('court_type', selectedTimeSlot.dataset.court);
+            formData.append('time', selectedTimeSlot.textContent.trim());
+            
+            // Send booking request
+            fetch('/booking/book/', {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRFToken': csrftoken
                 }
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    bookingModal.hide();
-                    window.location.href = '/booking-confirmation/';
+                    alert('Booking successful!');
+                    window.location.href = '/booking/booking-confirmation/';
                 } else {
-                    alert(data.error || 'Something went wrong. Please try again.');
+                    alert(data.error || 'Booking failed. Please try again.');
+                    if (data.error === 'Please login to make a booking') {
+                        window.location.href = '/login';
+                    }
                 }
             })
             .catch(error => {
@@ -450,6 +538,49 @@
                 alert('An error occurred. Please try again.');
             });
         });
+
+        // Update the loadBookings function
+        function loadBookings() {
+            fetch('/booking/check-availability/')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Booked slots:', data.booked_slots);  // Debug log
+                        updateTimeSlots(data.booked_slots);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking availability:', error);
+                });
+        }
+
+        function updateTimeSlots(bookedSlots) {
+            // Reset all slots to available first
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('booked', 'pending');
+                slot.disabled = false;
+            });
+
+            // Mark booked slots
+            bookedSlots.forEach(slot => {
+                // Convert 24-hour time to 12-hour format for matching
+                const time24 = slot.time;
+                const [hours, minutes] = time24.split(':');
+                const time12 = new Date(2020, 0, 1, hours, minutes).toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                }).toUpperCase();
+
+                const button = document.querySelector(`.time-slot[data-court="${slot.court}"]:not(.disabled)`);
+                if (button && button.textContent.trim() === time12) {
+                    button.classList.add(slot.status);
+                    if (slot.status === 'booked') {
+                        button.disabled = true;
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>

@@ -27,28 +27,22 @@
     <nav class="navbar">
       <div class="content">
         <div class="logo">
-          <a href="">Dope Futsal</a>
+          <a href="/">Dope Futsal</a>
         </div>
         <ul class="menu-list">
           <div class="icon cancel-btn">
             <i class="fas fa-times"></i>
           </div>
           <li>
-            <a href="http://127.0.0.1:8000/"
-              ><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a
-            >
+            <a href="/"><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a>
           </li>
           {% if request.session.customer %}
           <li>
-            <a href="http://127.0.0.1:8000/futsal_booking"
-              ><i class="fas fa-hands-helping"></i>&nbsp;Booking</a
-            >
+            <a href="{% url 'booking:futsal-booking' %}"><i class="fas fa-hands-helping"></i>&nbsp;Booking</a>
           </li>
           {% else %}
           <li>
-            <a href="http://127.0.0.1:8000/login"
-              ><i class="fas fa-hands-helping"></i>&nbsp;Booking</a
-            >
+            <a href="/login"><i class="fas fa-hands-helping"></i>&nbsp;Booking</a>
           </li>
           <!-- <li>
             <a href="http://127.0.0.1:8000/login"
@@ -57,9 +51,7 @@
           </li> -->
           {% endif %}
           <li>
-            <a href="http://127.0.0.1:8000/aboutus"
-              ><i class="fa fa-fw fa-info"></i>About Us</a
-            >
+            <a href="/aboutus"><i class="fa fa-fw fa-info"></i>About Us</a>
           </li>
            {% if request.session.customer %}
            <!-- <li>
@@ -73,26 +65,18 @@
     </button>
     <div class="dropdown-content">
       {% for customer in customer %}
-      <a href="http://127.0.0.1:8000/userprofile"
-              ><i class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;{{customer.first_name}}</a
-            >
-            {% endfor %}
-       <a href="/logout"
-              ><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;&nbsp;Logout</a
-            >
+      <a href="/userprofile"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;{{customer.first_name}}</a>
+      {% endfor %}
+       <a href="/logout"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;&nbsp;Logout</a>
       
     </div>
   </div> 
           {% else %}
            <li>
-            <a href="http://127.0.0.1:8000/signup"
-              ><i class="fas fa-user-plus"></i>&nbsp;SignUp</a
-            >
+            <a href="/signup"><i class="fas fa-user-plus"></i>&nbsp;SignUp</a>
           </li>
            <li>
-            <a href="http://127.0.0.1:8000/login"
-              ><i class="fas fa-sign-in-alt"></i> Login</a
-            >
+            <a href="/login"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a>
           </li>
           {% endif %}
         </ul>

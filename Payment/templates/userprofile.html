@@ -27,7 +27,6 @@
                     {% endfor %}
                     {% for customer in all_customer %}
                     <h4>{{customer.first_name}} {{customer.last_name}}</h4>
-                    <p class="text-secondary mb-1">{{customer.username}}</p>
                     <p class="text-muted font-size-sm">{{customer.email}}</p>
                     <a href="/logout" style="color: #e0623c;"><button class="btn btn-outline" >Logout</a></button>
                     {% endfor %}
@@ -61,28 +60,10 @@
                 <hr>
                 <div class="row">
                   <div class="col-sm-3">
-                    <h6 class="mb-0" style="font-size: 15px; color: #e0623c;">UserName</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary" style="font-size: 20px; color: #000000;">
-                    {{customer.username}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
                     <h6 class="mb-0" style="font-size: 15px; color: #e0623c;">Email</h6>
                   </div>
                   <div class="col-sm-9 text-secondary" style="font-size: 20px; color: #000000;">
                     {{customer.email}}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0" style="font-size: 15px; color: #e0623c;">Phone</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary" style="font-size: 20px; color: #000000;">
-                    {{customer.phone}}
                   </div>
                 </div>
                 <hr>

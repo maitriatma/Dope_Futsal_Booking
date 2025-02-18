@@ -28,9 +28,7 @@
             {% csrf_token %}
             <h2 class="title" style="color: black">Sign Up</h2>
             {% if error %}
-
             <div class="alert alert-danger" role="alert">{{error}}</div>
-
             {% endif %}
             <div class="input-field">
               <i class="fas fa-user"></i>
@@ -53,30 +51,6 @@
                 value="{{values.last_name}}"
                 class="form-control"
                 placeholder="Last Name"
-                aria-describedby="helpId"
-              />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-phone-alt"></i>
-              <input
-                type="phone"
-                name="phone"
-                id=""
-                value="{{values.phone}}"
-                class="form-control"
-                placeholder="Phone Number"
-                aria-describedby="helpId"
-              />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input
-                type="username"
-                name="username"
-                id=""
-                value="{{values.username}}"
-                class="form-control"
-                placeholder="User Name"
                 aria-describedby="helpId"
               />
             </div>
@@ -111,7 +85,6 @@
               <a href="#" class="social-icon">
                 <i class="fab fa-facebook-f"></i>
               </a>
-
               <a href="#" class="social-icon">
                 <i class="fab fa-google"></i>
               </a>

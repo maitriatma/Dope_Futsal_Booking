@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 class updatecustomer(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['first_name', 'last_name', 'username', 'phone', 'email', 'images', 'age', 'address']
+        fields = ['first_name', 'last_name', 'email', 'images', 'age', 'address']
 
 
 class updateprofile(ModelForm):
@@ -25,8 +25,6 @@ class updateprofile(ModelForm):
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'FullName'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
-            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
-            'phone': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
             'age': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'age'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'email'}),
