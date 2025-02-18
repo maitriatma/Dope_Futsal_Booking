@@ -26,46 +26,59 @@ class FutsalBooking(View):
         date = request.POST.get('date')
         time = request.POST.get('time')
         playing_hours = request.POST.get('playing_hours')
-        template = render_to_string('Userfutsalbooking_email.html', {'fullname': fullname, 'date': date, 'time': time , 'playing_hours':playing_hours})
-        send_mail(
-            'Futsal Booked Sucessfully!',
-            template,
-            'Brihaspatifutsal2018@gmail.com',
-            [email],
-            fail_silently=False,
+        
+        # Create booking first
+        booking = Booking(
+            fullname=fullname,
+            customer=Customer(id=customer),
+            email=email,
+            phone=phone,
+            address=address,
+            date=date,
+            time=time,
+            playing_hours=playing_hours
         )
-
-        value = {
-            'fullname': fullname,
-            'email': email,
-            'phone': phone,
-            'address': address,
-            'date': date,
-            'time': time,
-            'playing_hours': playing_hours,
-            'customer': customer
-        }
-        error_message = None
-        booking = Booking(fullname=fullname,
-                          customer=Customer(id=customer),
-                          email=email,
-                          phone=phone,
-                          address=address,
-                          date=date,
-                          time=time,
-                          playing_hours=playing_hours)
+        
         error_message = self.validateBooking(booking)
-        if not error_message:
-            print(fullname, phone, address, date, time, customer)
-            request.session['booking'] = booking.id
-            booking.save()
-            return redirect('send-mail')
-        else:
-            data = {
+        if error_message:
+            return render(request, 'booking.html', {
                 'error': error_message,
-                'values': value
-            }
-        return render(request, 'booking.html', data)
+                'values': {
+                    'fullname': fullname,
+                    'email': email,
+                    'phone': phone,
+                    'address': address,
+                    'date': date,
+                    'time': time,
+                    'playing_hours': playing_hours,
+                    'customer': customer
+                }
+            })
+        
+        # Save booking
+        booking.save()
+        
+        # Try to send email, but don't fail if it doesn't work
+        try:
+            template = render_to_string('Userfutsalbooking_email.html', {
+                'fullname': fullname,
+                'date': date,
+                'time': time,
+                'playing_hours': playing_hours
+            })
+            
+            send_mail(
+                'Futsal Booked Successfully!',
+                template,
+                'noreply@dopefutsal.com',  # Generic sender address
+                [email],
+                fail_silently=True
+            )
+        except Exception as e:
+            # Log the error but continue with the booking process
+            print(f"Email notification failed: {str(e)}")
+        
+        return redirect('send-mail')
 
     def validateBooking(self, booking):
         error_message = None
@@ -140,8 +153,8 @@ def sendfutsalmail(request):
     send_mail(
         'New Futsal Time have been Booked!',
         'Hi , This is a mail to confirm that new Futsal Time have been booked. Please check admin dashboard and confirm the bookings.',
-        'Brihaspatifutsal2018@gmail.com',
-        ['emailthaxaena@gmail.com'],
+        'psychologicallysmart@gmail.com',
+        ['psychologicallysmart@gmail.com'],
         fail_silently=False,
     )
     return redirect('bookings')
