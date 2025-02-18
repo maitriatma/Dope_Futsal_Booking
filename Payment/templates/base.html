@@ -35,66 +35,56 @@
     <nav class="navbar sticky-top">
       <div class="content">
         <div class="logo">
-          <a href="http://127.0.0.1:8000/">Dope Futsal</a>
+          <a href="/">Dope Futsal</a>
         </div>
         <ul class="menu-list">
           <div class="icon cancel-btn">
             <i class="fas fa-times"></i>
           </div>
           <li>
-            <a href="http://127.0.0.1:8000/"
+            <a href="/"
               ><i class="fas fa-home"></i>&nbsp;&nbsp;Home</a
             >
           </li>
           <li>
-            <a href="http://127.0.0.1:8000/futsal_booking"
+            <a href="{% url 'booking:futsal-booking' %}"
               ><i class="fas fa-hands-helping"></i>&nbsp;Booking</a
             >
           </li>
          
           
           <li>
-            <a href="http://127.0.0.1:8000/aboutus"
+            <a href="/aboutus"
               ><i class="fa fa-fw fa-info"></i> About Us</a
             >
           </li>
           {% if request.session.customer %}
            <!-- <li>
-            <a href="http://127.0.0.1:8000/Tregistration"
+            <a href="/Tregistration"
               ><i class="far fa-registered"></i> Tournament Registration</a
             >
           </li> -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="http://127.0.0.1:8000/userprofile" style="color: white;" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-circle"></i>
+          <a class="nav-link dropdown-toggle" href="/userprofile" style="color: white;" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user-circle"></i>
             Profile
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" style="background-color: transparent; border-color: transparent;"  aria-labelledby="navbarDarkDropdownMenuLink" >
             {% for customer in customer %}
-            <li><a class="dropdown-item" style="color: white;" href="http://127.0.0.1:8000/userprofile"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;{{customer.first_name}}</a></li>
+            <li><a class="dropdown-item" style="color: white;" href="/userprofile"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;{{customer.first_name}}</a></li>
             {% endfor %}
             <li><a class="dropdown-item" style="color: white;" href="/logout"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;&nbsp;Logout</a></li>
           </ul>
         </li>
       </ul>
     </div>
-          <!-- <li>
-            <a href="http://127.0.0.1:8000/profile"
-              ><i class="fa fa-fw fa-user"></i>User{{request.session.customer.name}}</a
-            >
-          </li>
-           <li>
-            <a href="/logout"
-              ><i class="fas fa-sign-out"></i>Logout</a
-            >
-          </li> -->
           {% else %}
            <li>
-            <a href="http://127.0.0.1:8000/signup"
+            <a href="/signup"
               ><i class="fas fa-user-plus"></i>&nbsp;SignUp</a
             >
           </li>
            <li>
-            <a href="http://127.0.0.1:8000/login"
+            <a href="/login"
               ><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a
             >
           </li>

@@ -4,8 +4,8 @@ from django.db import models
 class Customer(models.Model):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-    phone = models.CharField(max_length=150)
-    username = models.CharField(max_length=150, )
+    phone = models.CharField(max_length=150, null=True, blank=True)
+    username = models.CharField(max_length=150, null=True, blank=True)
     email = models.EmailField(null=True)
     password = models.CharField(max_length=150, null=True)
     address = models.CharField(max_length=150, null=True, blank=True)
@@ -41,7 +41,7 @@ class Customer(models.Model):
     def isExists(self):
         if Customer.objects.filter(email=self.email):
             return True
-            return False
+        return False
 
     def userisExists(self):
         if Customer.objects.filter(username=self.username):
