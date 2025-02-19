@@ -9,6 +9,7 @@ from ..models.booking import Booking
 from django.utils import timezone
 from django.db import IntegrityError
 from datetime import datetime
+from Payment.models.customer import Customer
 
 def home(request):
     return render(request, 'firsthomepage.html')
@@ -37,6 +38,21 @@ def create_booking(request):
                 'error': 'Invalid time format'
             })
 
+        # Get customer information from session
+        customer_id = request.session.get('customer')
+        if not customer_id:
+            return JsonResponse({
+                'success': False,
+                'error': 'Please login to make a booking'
+            })
+
+        customer = Customer.get_customer_by_id(customer_id)
+        if not customer:
+            return JsonResponse({
+                'success': False,
+                'error': 'Customer not found'
+            })
+
         # Check if slot is already booked for this specific court
         existing_booking = Booking.objects.filter(
             date=timezone.now().date(),
@@ -50,8 +66,21 @@ def create_booking(request):
                 'error': 'This time slot is already booked for this court. Please choose another time or court.'
             })
 
-        # Create new booking with only essential fields
+        # Calculate total amount based on court type and hours
+        court_prices = {
+            '1': 1500,  # Premium Court
+            '2': 1300,  # Gold Court
+            '3': 1000   # Silver Court
+        }
+        total_amount = court_prices[court_type] * int(playing_hours)
+
+        # Create new booking with customer information
         booking = Booking(
+            fullname=f"{customer.first_name} {customer.last_name}",
+            email=customer.email,
+            phone=customer.phone,
+            address=customer.address,
+            customer=customer,
             time=time,
             date=timezone.now().date(),
             playing_hours=playing_hours,
@@ -59,6 +88,9 @@ def create_booking(request):
             status=True  # Set initial status as confirmed
         )
         booking.save()
+
+        # Store booking ID in session for confirmation page
+        request.session['latest_booking_id'] = booking.id
 
         return JsonResponse({
             'success': True,
@@ -110,7 +142,32 @@ def check_availability(request):
 
 def booking_confirmation(request):
     try:
-        latest_booking = Booking.objects.latest('booked_at')
-        return render(request, 'booking_confirmation.html', {'booking': latest_booking})
+        # Get booking ID from session
+        booking_id = request.session.get('latest_booking_id')
+        if not booking_id:
+            return redirect('booking_page')
+            
+        booking = Booking.objects.get(id=booking_id)
+        
+        # Format the time for display
+        time_obj = datetime.strptime(booking.time.strftime('%H:%M'), '%H:%M')
+        formatted_time = time_obj.strftime('%I:%M %p')
+        
+        # Calculate total amount
+        court_prices = {
+            '1': 1500,  # Premium Court
+            '2': 1300,  # Gold Court
+            '3': 1000   # Silver Court
+        }
+        total_amount = court_prices[booking.court_number] * int(booking.playing_hours)
+        
+        context = {
+            'booking': booking,
+            'formatted_time': formatted_time,
+            'total_amount': total_amount,
+            'court_name': dict(Booking.COURT_CHOICES)[booking.court_number]
+        }
+        
+        return render(request, 'booking_confirmation.html', context)
     except Booking.DoesNotExist:
         return redirect('booking_page') 
